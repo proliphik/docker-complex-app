@@ -9,12 +9,8 @@ services:
 
   express:
     build:
-      context: .
+      context: ./server
       dockerfile: Dockerfile.dev
-    working_dir: /app/server
-    command: "npm run dev"
-    # ports:
-      # - '8080:5000'
     volumes:
       - /app/server/node_modules
       - ./server:/app/server
@@ -28,25 +24,19 @@ services:
 
   react:
     build:
-      context: .
+      context: ./client
       dockerfile: Dockerfile.dev
-    working_dir: /app/client
-    command: npm start
     volumes:
       - /app/client/node_modules
       - ./client:/app/client
     environment:
       SERVER_HOST: express
       SERVER_PORT: 5000
-    # ports:
-      # - "3000:3000"
 
   worker:
     build:
-      context: .
+      context: ./worker
       dockerfile: Dockerfile.dev
-    working_dir: /app/worker
-    command: npm run dev
     environment:
       REDIS_HOST: redis
       REDIS_PORT: 6379
