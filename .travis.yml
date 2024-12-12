@@ -1,0 +1,37 @@
+language: node_js
+
+# these are the only branches we should build on when we push to a branch
+# so don't even run tests when we push to other branches
+branches:
+  only:
+    - master
+
+services:
+  - docker
+
+install: skip
+
+script:
+  - docker build -f client/Dockerfile.dev -t react-test client
+  - docker run -e "CI=true" react-test npm test
+
+before_deploy:
+  - docker build -t jerryudemy/pro-client client/
+  - docker build -t jerryudemy/pro-worker worker/
+  - docker build -t jerryudemy/pro-server server/
+  - docker build -t jerryudemy/pro-nginx nginx/
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push jerryudemy/pro-client
+  - docker push jerryudemy/pro-worker
+  - docker push jerryudemy/pro-server
+  - docker push jerryudemy/pro-nginx
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "docker-course-frontend"
+  env: "docker-course-frontend-env"
+  bucket: "elasticbeanstalk-us-east-2-739614015117"
+  bucket_path: "docker-course-frontend"
+  on:
+    branch: master

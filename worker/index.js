@@ -14,10 +14,10 @@ function fib(index) {
 }
 
 sub.on('message', (channel, message) => {
-  console.log('jerry message');
+  console.log('pro message');
   redisClient.hset('values', message, fib(parseInt(message)));
 });
 sub.subscribe('insert');
 
 
-console.log('jerry ahahe');
+console.log('pro ahahe');
