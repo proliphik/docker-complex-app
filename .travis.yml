@@ -11,4 +11,5 @@ services:
 install: skip
 
 scrip:
-  - echo "haha jerry"
+  - docker build -f client/Dockerfile.dev -t react-test client
+  - docker run -e "CI=true" react-test npm test
