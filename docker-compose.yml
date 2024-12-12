@@ -19,7 +19,7 @@ services:
       REDIS_PORT: 6379
       PGHOST: database
       PGUSER: postgres
-      PGPASSWORD: jerrydocker
+      PGPASSWORD: prodocker
 
 
   react:
@@ -52,7 +52,7 @@ services:
   database:
     image: postgres:15-alpine3.19
     environment:
-      POSTGRES_PASSWORD: jerrydocker
+      POSTGRES_PASSWORD: prodocker
     volumes:
       - postgres-data:/var/lib/postgresql/data
 

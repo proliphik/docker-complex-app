@@ -30,6 +30,6 @@ server { \n\
         index index.html index.htm; \n\
         try_files $uri $uri/ /index.html; \n\
     } \n\
-}' >> /tmp/jerry_conf
+}' >> /tmp/pro_conf
 
-RUN cp /tmp/jerry_conf /etc/nginx/conf.d/default.conf
+RUN cp /tmp/pro_conf /etc/nginx/conf.d/default.conf
