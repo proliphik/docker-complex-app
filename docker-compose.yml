@@ -1,19 +1,12 @@
 services:
 
   load_balancer:
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile.dev
+    image: jerryudemy/pro-nginx
     ports:
-      - '8000:80'
+      - '80:80'
 
   express:
-    build:
-      context: ./server
-      dockerfile: Dockerfile.dev
-    volumes:
-      - /app/server/node_modules
-      - ./server:/app/server
+    image: jerryudemy/pro-server
     environment:
       REDIS_HOST: redis
       REDIS_PORT: 6379
@@ -21,30 +14,17 @@ services:
       PGUSER: postgres
       PGPASSWORD: prodocker
 
-
   react:
-    build:
-      context: ./client
-      dockerfile: Dockerfile.dev
-    volumes:
-      - /app/client/node_modules
-      - ./client:/app/client
+    image: jerryudemy/pro-client
     environment:
       SERVER_HOST: express
       SERVER_PORT: 5000
-      WDS_SOCKET_PORT: 0
-
+      
   worker:
-    build:
-      context: ./worker
-      dockerfile: Dockerfile.dev
+    image: jerryudemy/pro-worker
     environment:
       REDIS_HOST: redis
       REDIS_PORT: 6379
-    volumes:
-      - /app/worker/node_modules
-      - ./worker:/app/worker
-
 
   redis:
     image: redis:7.2.3
@@ -53,9 +33,3 @@ services:
     image: postgres:15-alpine3.19
     environment:
       POSTGRES_PASSWORD: prodocker
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
-
-
-volumes:
-  postgres-data:
