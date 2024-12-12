@@ -17,6 +17,7 @@ scrip:
   - docker build -t jerryudemy/pro-worker worker/
   - docker build -t jerryudemy/pro-server server/
   - docker build -t jerryudemy/pro-nginx nginx/
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push jerryudemy/pro-client
   - docker push jerryudemy/pro-worker
   - docker push jerryudemy/pro-server
