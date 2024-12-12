@@ -16,9 +16,9 @@ RUN npm run build
 # stage 1: set up nginx
 FROM nginx:1.26.2
 
-COPY --from=0 /app/client/build/ /usr/share/nginx/html/
-
 EXPOSE 3000
+
+COPY --from=0 /app/client/build/ /usr/share/nginx/html/
 
 RUN echo ' \n\
 server { \n\
