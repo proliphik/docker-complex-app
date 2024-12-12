@@ -1,0 +1,14 @@
+language: node_js
+
+# these are the only branches we should build on when we push to a branch
+branches:
+  only:
+    - master
+
+services:
+  - docker
+
+install: skip
+
+scrip:
+  - echo "haha jerry"
