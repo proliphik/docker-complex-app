@@ -20,7 +20,8 @@ const pgClient = new Pool({
   ssl:
     process.env.NODE_ENV !== 'production'
       ? false
-      : { rejectUnauthorized: false },
+      : false
+      // : { rejectUnauthorized: false },
 });
 
 pgClient.on('connect', (client) => {
